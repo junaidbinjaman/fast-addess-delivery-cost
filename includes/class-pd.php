@@ -167,6 +167,7 @@ class Pd {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'add_defer_attribute_to_google_maps_script', 10, 2 );
 	}
 
 	/**

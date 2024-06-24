@@ -82,6 +82,14 @@ class Pd_Public {
 	public function enqueue_scripts() {
 
 		/**
+		 * The option input is generated with jet engine option page.
+		 *
+		 * The input contains the google map api;
+		 */
+		$all_options    = get_option( 'options', array() );
+		$google_map_api = isset( $all_options['google-map-api-key'] ) ? $all_options['google-map-api-key'] : false;
+
+		/**
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
@@ -92,7 +100,35 @@ class Pd_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+		wp_enqueue_script(
+			'google-maps-api',
+			'https://maps.googleapis.com/maps/api/js?key=AIzaSyCxueFvkiU6ag6FSNmKDHm2GsrSSfZXcDI&callback=initMap&libraries=places',
+			array(),
+			null,
+			true // Load in footer.
+		);
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/pd-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script(
+			$this->plugin_name,
+			plugin_dir_url( __FILE__ ) . 'js/pd-public.js',
+			array( 'jquery', 'google-maps-api' ),
+			$this->version,
+			true
+		);
+	}
+
+	/**
+	 * Add defer to google map script
+	 *
+	 * @param string $tag The script tag.
+	 * @param string $handle The stript id.
+	 * @return string The script tag.
+	 */
+	public function add_defer_attribute_to_google_maps_script( $tag, $handle ) {
+		if ( 'google-maps-api' === $handle ) {
+			return str_replace( ' src', ' defer="defer" src', $tag );
+		}
+
+		return $tag;
 	}
 }

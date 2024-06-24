@@ -77,3 +77,20 @@ function run_pd() {
 	$plugin->run();
 }
 run_pd();
+
+//phpcs:disabled
+
+function foobar() {
+	echo '<button class="pd-auto-location-detector">Auto Detect Location</button>';
+	echo '<button class="pd-manual-location-detector">Type Out Location</button>';
+
+	echo '<div class="pd-manual-location-detector-wrapper">';
+	echo '<label>Type the delivery address</label> <br />';
+	echo '<input id="pd-manual-location-detector"  /> <br />';
+	echo '<small>Please Note: This input box is powered by google map. So your delivery address must be listing on google</small>';
+	echo '</div>';
+
+	echo '<div id="map" style="height: 500px; width: 100%;"></div>';
+}
+
+add_action( 'woocommerce_before_checkout_billing_form', 'foobar' );
