@@ -35,11 +35,12 @@
 function pd_handle_location_input_visibility($) {
     $('.pd-manual-location-detector').on('click', function () {
         $('.pd-manual-location-detector-wrapper').show();
+        pd_foobar()
     });
 
-	$('.pd-auto-location-detector').on('click', function() {
-		$('.pd-manual-location-detector-wrapper').hide();
-	})
+    $('.pd-auto-location-detector').on('click', function () {
+        $('.pd-manual-location-detector-wrapper').hide();
+    });
 }
 
 // Note: This example requires that you consent to location sharing when
@@ -94,3 +95,39 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 window.initMap = initMap;
+
+// Search auto complete
+
+function pd_foobar() {
+    const center = {lat: 23.76353368870684, lng: 90.43209677661604};
+    // Create a bounding box with sides ~10km away from the center point
+    const defaultBounds = {
+        north: center.lat + 0.1,
+        south: center.lat - 0.1,
+        east: center.lng + 0.1,
+        west: center.lng - 0.1,
+    };
+
+    const input = document.getElementById('pac-input');
+    const options = {
+        bounds: defaultBounds,
+        componentRestrictions: {country: 'bd'},
+        fields: ['address_components', 'geometry', 'icon', 'name', 'place_id'], // Note: 'place_id' instead of 'placeId'
+        strictBounds: false,
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(input, options);
+
+    autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        
+        if (!place.place_id) {
+            console.log('Place ID not returned.');
+        }
+
+        console.log('Place ID:', place.place_id);
+        console.log(place.geometry.location.lat(), place.geometry.location.lng());
+    });
+}
+
+

@@ -86,7 +86,7 @@ function foobar() {
 
 	echo '<div class="pd-manual-location-detector-wrapper">';
 	echo '<label>Type the delivery address</label> <br />';
-	echo '<input id="pd-manual-location-detector"  /> <br />';
+	echo '<input placeholder="Type your address" id="pac-input"  /> <br />';
 	echo '<small>Please Note: This input box is powered by google map. So your delivery address must be listing on google</small>';
 	echo '</div>';
 
