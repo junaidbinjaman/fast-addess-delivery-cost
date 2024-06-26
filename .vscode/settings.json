@@ -4,8 +4,11 @@
       "Junaid",
       "multisite",
       "phpcs",
+      "practise",
+      "shortcode",
       "sitewide",
       "subpackage",
+      "woocommerce",
       "WPINC"
     ],
 

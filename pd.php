@@ -80,7 +80,7 @@ run_pd();
 
 //phpcs:disabled
 
-function foobar() {
+function pd_live_location() {
 	echo '<button class="pd-auto-location-detector">Auto Detect Location</button>';
 	echo '<button class="pd-manual-location-detector">Type Out Location</button>';
 
@@ -93,4 +93,14 @@ function foobar() {
 	echo '<div id="map" style="height: 500px; width: 100%;"></div>';
 }
 
-add_action( 'woocommerce_before_checkout_billing_form', 'foobar' );
+add_action( 'woocommerce_before_checkout_billing_form', 'pd_live_location' );
+
+function foobar() {
+	add_shortcode( 'pd_interactive_map', 'pd_interactive_map__callback' );
+}
+
+function pd_interactive_map__callback() {
+	return '<div id="map"></div>';
+}
+
+// add_action( 'init', 'foobar' );
